@@ -3,10 +3,11 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
+import { SyllabusResult } from "@/components/types/syllabus"
 
 export default function Home() {
   const [syllabusText, setSyllabusText] = useState("");
-  const [submittedText, setSubmittedText] = useState("");
+  const [result, setResult] = useState<SyllabusResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -36,8 +37,8 @@ export default function Home() {
       }
 
       const data = await response.json();
-
-      setSubmittedText(data.result)
+      setResult(data)
+      
     } catch {
       setError("Failed to generate schedule")
     } finally {
@@ -80,16 +81,48 @@ export default function Home() {
             <p className="text-sm text-destructive">{error}</p>
           )}
 
-          {submittedText && (
-            <div className="mt-8 rounded-lg border p-4">
-              <h2 className="mb-2 font-medium">
-                Submitted syllabus
-              </h2>
+          {result && (
+            result.weeks.map((week) => (
+              <div key={week.week}>
+                {week.week}
 
-              <p className="whitespace-pre-wrap text-sm text-muted-foreground">
-                {submittedText}
-              </p>
-            </div>
+                <h3>Topics</h3>
+
+                {week.topics.map((topic) => (
+                  <div key={topic}>
+                    {topic}
+                  </div>
+                ))}
+
+                {!week.topics.length && (
+                  <p>None</p>
+                )}
+
+                <h3>Readings</h3>
+
+                {week.readings.map((reading) => (
+                  <div key={reading}>
+                    {reading}
+                  </div>
+                ))}
+
+                {!week.readings.length && (
+                  <p>None</p>
+                )}
+
+                <h3>Assessments</h3>
+
+                {week.assessments.map((assessment) => (
+                  <div key={assessment}>
+                    {assessment}
+                  </div>
+                ))}
+
+                {!week.assessments.length && (
+                  <p>None</p>
+                )}
+              </div>
+            ))
           )}
         </div>
       </div>
