@@ -10,6 +10,7 @@ export default function Home() {
   const [result, setResult] = useState<SyllabusResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
 
   async function handleSubmit(
     e: React.SyntheticEvent<HTMLFormElement, SubmitEvent>
@@ -44,6 +45,54 @@ export default function Home() {
     } finally {
       setIsLoading(false);
     }
+  }
+
+  function formatSchedule() {
+    if (!result) return ""
+
+    const weeks = result.weeks.map((week) => {
+      const topics = week.topics.length
+      ? week.topics
+        .map((topic) => `- ${topic}`)
+        .join("\n")
+      : "- None"
+
+      const readings = week.readings.length
+      ? week.readings
+        .map((reading) => `- ${reading}`)
+        .join("\n")
+        : "- None"
+
+      const assessments = week.assessments.length
+      ? week.assessments
+        .map((assessment) => `- ${assessment}`)
+        .join("\n")
+        : "- None"
+      
+    return `${week.week} 
+      
+    Topics
+    ${topics}
+    
+    Readings
+    ${readings}
+    
+    Assessments
+    ${assessments}`
+    })
+  
+    return weeks.join("\n\n");
+  }
+
+  async function handleCopy() {
+    const text = formatSchedule()
+    await navigator.clipboard.writeText(text)
+
+    setCopied(true)
+
+    setTimeout(() => {
+      setCopied(false)
+    }, 2000)
   }
   
   return (
@@ -130,6 +179,14 @@ export default function Home() {
                 </div>
               </div>
             ))
+          )}
+
+          {result && (
+            <Button
+              onClick={handleCopy}
+            >
+              {copied ? "Copied!" : "Copy Schedule"}
+            </Button>
           )}
         </div>
       </div>
