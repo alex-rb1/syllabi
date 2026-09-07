@@ -37,7 +37,7 @@ export default function Home() {
 
       const data = await response.json();
 
-      setSubmittedText(data.syllabusText)
+      setSubmittedText(data.result)
     } catch {
       setError("Failed to generate schedule")
     } finally {
