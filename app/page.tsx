@@ -83,44 +83,51 @@ export default function Home() {
 
           {result && (
             result.weeks.map((week) => (
-              <div key={week.week}>
-                {week.week}
+              <div key={week.week} className="border rounded-lg p-6 mb-4">
+                <h2 className="text-lg font-semibold mb-4">{week.week}</h2>
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="font-medium mb-1">Topics</h3>
 
-                <h3>Topics</h3>
+                    {week.topics.map((topic) => (
+                      <div key={topic}>
+                        {topic}
+                      </div>
+                    ))}
 
-                {week.topics.map((topic) => (
-                  <div key={topic}>
-                    {topic}
+                    {!week.topics.length && (
+                      <p>None</p>
+                    )}
                   </div>
-                ))}
 
-                {!week.topics.length && (
-                  <p>None</p>
-                )}
+                  <div>
+                    <h3 className="font-medium mb-1">Readings</h3>
 
-                <h3>Readings</h3>
+                    {week.readings.map((reading) => (
+                      <div key={reading}>
+                        {reading}
+                      </div>
+                    ))}
 
-                {week.readings.map((reading) => (
-                  <div key={reading}>
-                    {reading}
+                    {!week.readings.length && (
+                      <p>None</p>
+                    )}
                   </div>
-                ))}
 
-                {!week.readings.length && (
-                  <p>None</p>
-                )}
+                  <div>
+                    <h3 className="font-medium mb-1">Assessments</h3>
 
-                <h3>Assessments</h3>
+                    {week.assessments.map((assessment) => (
+                      <div key={assessment}>
+                        {assessment}
+                      </div>
+                    ))}
 
-                {week.assessments.map((assessment) => (
-                  <div key={assessment}>
-                    {assessment}
+                    {!week.assessments.length && (
+                      <p>None</p>
+                    )}
                   </div>
-                ))}
-
-                {!week.assessments.length && (
-                  <p>None</p>
-                )}
+                </div>
               </div>
             ))
           )}
