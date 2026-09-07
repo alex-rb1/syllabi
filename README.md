@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Syllabi
+
+Syllabi is a web app that turns course syllabi into clean, structured weekly schedules.
+
+Paste in a syllabus, and Syllabi uses AI to extract and organize the course content by week, including topics, readings, and assessments.
+
+## Features
+
+* Paste syllabus text directly into the app
+* AI-powered syllabus parsing with Gemini
+* Structured week-by-week output
+* Organizes:
+
+  * Topics
+  * Readings
+  * Assessments
+* Handles missing sections cleanly
+* Simple, responsive interface
+
+## Tech Stack
+
+* **Next.js**
+* **React**
+* **TypeScript**
+* **Tailwind CSS**
+* **shadcn/ui**
+* **Google Gemini API**
+
+## How It Works
+
+1. The user pastes their syllabus into the app.
+2. The frontend sends the syllabus to a Next.js API route.
+3. The API sends the syllabus to Gemini with a structured output schema.
+4. Gemini extracts the course information into structured JSON.
+5. The app renders the result as a week-by-week schedule.
 
 ## Getting Started
 
-First, run the development server:
+Clone the repository and install the dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env.local` file in the project root:
+
+```env
+GEMINI_API_KEY=your_api_key
+```
+
+Then start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000` in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Status
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Syllabi is currently an MVP under development.
 
-## Learn More
+### Implemented
 
-To learn more about Next.js, take a look at the following resources:
+* Syllabus text input
+* Gemini integration
+* Structured AI output
+* Weekly schedule generation
+* Topics, readings, and assessments rendering
+* Basic result UI
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Planned
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* Copyable schedule output
+* Improved loading and error states
+* More robust syllabus parsing
+* Image/PDF syllabus uploads
+* Production deployment
