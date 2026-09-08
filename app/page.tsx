@@ -17,10 +17,14 @@ export default function Home() {
   ) {
     e.preventDefault()
 
-    if (!syllabusText.trim()) return
+    if (!syllabusText.trim()) {
+      setError("Please paste your syllabus first.")
+      return
+    }
 
     setIsLoading(true);
     setError("");
+    setResult(null);
 
     try{
       const response = await fetch("/api/generate", {
@@ -34,14 +38,19 @@ export default function Home() {
       })
 
       if (!response.ok) {
-        throw new Error("Failed to generate schedule")
+        const errorData = await response.json()
+        throw new Error(errorData.error)
       }
 
       const data = await response.json();
       setResult(data)
       
-    } catch {
-      setError("Failed to generate schedule")
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message)
+      } else {
+        setError("Something went wrong")
+      }
     } finally {
       setIsLoading(false);
     }
@@ -114,7 +123,11 @@ export default function Home() {
               placeholder="Paste your syllabus here..."
               className="min-h-80 resize-none"
               value={syllabusText}
-              onChange={(e) => setSyllabusText(e.target.value)}
+              onChange={(e) => {
+                setSyllabusText(e.target.value)
+                setError("");
+              }}
+              disabled={isLoading}
             />
 
             <Button 
@@ -128,6 +141,10 @@ export default function Home() {
 
           {error && (
             <p className="text-sm text-destructive">{error}</p>
+          )}
+
+          {isLoading && (
+            <p>Organizing your syllabus...</p>
           )}
 
           {result && (
