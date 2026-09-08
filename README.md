@@ -14,17 +14,23 @@ Paste in a syllabus, and Syllabi uses AI to extract and organize the course cont
   * Topics
   * Readings
   * Assessments
+* Copy generated schedules to the clipboard
 * Handles missing sections cleanly
+* Loading and error states
+* Input validation
 * Simple, responsive interface
 
 ## Tech Stack
 
-* **Next.js**
-* **React**
-* **TypeScript**
-* **Tailwind CSS**
-* **shadcn/ui**
-* **Google Gemini API**
+| Technology            | Purpose                             |
+| --------------------- | ----------------------------------- |
+| **Next.js**           | Full-stack framework and API routes |
+| **React**             | Frontend UI                         |
+| **TypeScript**        | Type-safe JavaScript                |
+| **Tailwind CSS**      | Styling                             |
+| **shadcn/ui**         | UI components                       |
+| **Google Gemini API** | AI-powered syllabus parsing         |
+| **Vitest**            | Automated testing                   |
 
 ## How It Works
 
@@ -33,6 +39,7 @@ Paste in a syllabus, and Syllabi uses AI to extract and organize the course cont
 3. The API sends the syllabus to Gemini with a structured output schema.
 4. Gemini extracts the course information into structured JSON.
 5. The app renders the result as a week-by-week schedule.
+6. The generated schedule can be copied for use elsewhere.
 
 ## Getting Started
 
@@ -56,9 +63,26 @@ npm run dev
 
 Open `http://localhost:3000` in your browser.
 
+## Testing
+
+Run the automated tests with:
+
+```bash
+npm test
+```
+
+The API route is tested for successful generation, invalid input, Gemini failures, missing responses, and invalid JSON responses.
+
+You can also verify the project with:
+
+```bash
+npm run lint
+npm run build
+```
+
 ## Project Status
 
-Syllabi is currently an MVP under development.
+Syllabi is a completed MVP.
 
 ### Implemented
 
@@ -67,12 +91,16 @@ Syllabi is currently an MVP under development.
 * Structured AI output
 * Weekly schedule generation
 * Topics, readings, and assessments rendering
-* Basic result UI
-
-### Planned
-
 * Copyable schedule output
-* Improved loading and error states
-* More robust syllabus parsing
+* Loading and error states
+* Input validation
+* API route testing
+* Production build validation
+
+### Potential Future Improvements
+
 * Image/PDF syllabus uploads
+* More robust syllabus parsing
+* Saved syllabi and schedules
+* Calendar integration
 * Production deployment
